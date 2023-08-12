@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root"> <h1>JAi Shree ram</h1></div>
+    <script  type="text/babel">
+
+        function Apps(){
+                    return(
+                        <>
+                        <h1> React Project</h1>
+                        <p> Skills used to make this project</p>
+                        <li> HTML</li>
+                        <li> javaScript</li>
+                        <li> CSS</li>
+                        </>
+                    )
+                }
+
+        const App = () =>(
+            <>
+                <h1> React Project</h1>
+                <p> Skills used to make this project</p>
+                <li> HTML</li>
+                <li> javaScript</li>
+                <li> CSS</li>
+                <Apps/>
+            </>
+        )
+
+        
+        
+                ReactDOM.createRoot(document.getElementById("root")).render(<h1>this is alfa</h1>);
+    </script>
+</body>
+</html>

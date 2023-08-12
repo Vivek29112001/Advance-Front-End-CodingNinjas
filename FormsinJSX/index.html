@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <title>React App</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    const studentDetails = []; // Store student details in an array
+
+      let nameRef = React.createRef();
+      let marksRef = React.createRef();
+
+      const addStudent = () => {
+        const name = nameRef.current.value;
+        const marks = marksRef.current.value;
+        studentDetails.push({ name, marks });
+
+        // Clear the input fields
+        nameRef.current.value = '';
+        marksRef.current.value = '';
+
+        rootElement.render(<App />);
+      };
+
+      const Form = () => (
+        <form>
+          <input placeholder="Name" ref={nameRef} />
+          <input placeholder="Marks" ref={marksRef} />
+          <button type="button" onClick={addStudent}>
+            Submit
+          </button>
+        </form>
+      );
+
+      const Result = () => (
+        <p>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Student's name</th>
+                <th>Marks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {studentDetails.map((student, index) => (
+                <tr key={index}>
+                  <td>{student.name}</td>
+                  <td>{student.marks}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </p>
+      );
+
+      const App = () => (
+        <>
+          <h1>Student's Form</h1>
+          <Form />
+          <Result />
+        </>
+      );
+
+      const rootElement = ReactDOM.createRoot(document.getElementById('root'));
+      rootElement.render(<App />);
+    </script>
+</body>
+
+</html>

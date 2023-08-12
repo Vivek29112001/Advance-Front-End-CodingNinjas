@@ -1,0 +1,42 @@
+.food-list {
+    display: grid;
+    padding: 20px;
+    grid-template: repeat(3, 200px) / repeat(auto-fit, minmax(180px, 1fr));
+    grid-auto-flow: row;
+    grid-auto-rows: 200px;
+    gap: 20px;
+  }
+  .food-list div {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(198, 245, 245);
+    border: 3px solid transparent;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .food-list div:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
+  .food-list div img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+  
+  .favourite-food {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(238, 255, 144);
+  }
+  .favourite-food img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+  
