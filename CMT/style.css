@@ -1,0 +1,44 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+  
+  form {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  form div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  button {
+    width: 120px;
+    padding-block: 5px;
+    cursor: pointer;
+  }
+  
+  th,
+  td {
+    padding: 10px;
+  }
+  
+  input {
+    padding: 5px;
+    font-size: 1.1rem;
+  }
+  
+  .served {
+    background-color: red;
+  }
+  .dining {
+    background-color: lime;
+    cursor: pointer;
+  }
+  

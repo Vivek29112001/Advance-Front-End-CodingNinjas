@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>React App</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // Initial data
+      let customers = [];
+      const capacity = 25;
+      let seatsLeft = 25;
+
+      // Create form submit handler
+       const handleFormSubmit = (event) => {
+      event.preventDefault();
+      const guestCount = parseInt(event.target.guestCount.value, 10);
+      const name = event.target.name.value;
+      const phoneNumber = event.target.phoneNumber.value;
+
+      // Check for duplicate name
+      if (customers.some((customer) => customer.name === name)) {
+        alert("Customer already exists");
+        return;
+      }
+
+      // Check if guest count exceeds capacity
+      if (guestCount > seatsLeft) {
+        alert("Guest count exceeds capacity");
+        return;
+      }
+
+      // Add customer data to the list
+      customers.unshift({
+        guestCount,
+        name,
+        phoneNumber,
+        checkIn: new Date().toLocaleTimeString(),
+        checkOut: "",
+        status: "Click to Checkout",
+      });
+
+      // Update seatsLeft and reset the form
+      seatsLeft -= guestCount;
+      event.target.reset();
+      renderApp(); // Re-render the app
+    };
+      
+
+      const App = () => (
+        <div className="App" style={{ textAlign: "center" }}>
+          <div>
+            <h2>Total Capacity: {capacity}</h2>
+            <h2>Seats Left: {seatsLeft}</h2>
+          </div>
+
+          {/* Create a form */}
+          <form onSubmit={handleFormSubmit}>
+            <input name="guestCount" placeholder="Guests count" />
+            <input name="name" placeholder="Name" />
+            <input name="phoneNumber" placeholder="Phone Number" />
+            <button type="submit">Add Entry</button>
+          </form>
+
+          {/* Customer details table */}
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Guest Count</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Status</th>
+                <th>Remove Entry</th>
+              </tr>
+            </thead>
+            <tbody>
+          {customers.map((customer, index) => (
+            <tr key={index}>
+              <td>{customer.guestCount}</td>
+              <td>{customer.name}</td>
+              <td>{customer.phoneNumber}</td>
+              <td>{customer.checkIn}</td>
+              <td>{customer.checkOut}</td>
+              <td>
+                {customer.status === "Click to Checkout" ? (
+                  <button onClick={() => handleCheckout(index)}>Checkout</button>
+                ) : (
+                  customer.status
+                )}
+              </td>
+              <td>
+                <button onClick={() => handleRemoveEntry(index)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        </table>
+      </div>
+    );
+
+
+      // Function to handle removing entries
+      
+       const handleCheckout = (index) => {
+      const customer = customers[index];
+      seatsLeft += customer.guestCount;
+      customer.status = "Checked Out";
+      customer.checkOut = new Date().toLocaleTimeString();
+      renderApp();
+    };
+
+      
+         const handleRemoveEntry = (index) => {
+      const customer = customers[index];
+      if (customer.status !== "Checked Out") {
+        seatsLeft += customer.guestCount;
+      }
+      customers.splice(index, 1);
+      renderApp();
+    };
+
+
+      // Function to render the app
+      const renderApp = () => {
+        const rootElement = ReactDOM.createRoot(
+          document.getElementById("root")
+        );
+        rootElement.render(<App />);
+      };
+
+      // Initial rendering
+      renderApp();
+    </script>
+  </body>
+</html>
