@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>React App</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // create handleQuote function here
+      const quotes = [];
+
+      const clearInputs = () => {
+        nameRef.current.value = "";
+        quoteRef.current.value = "";
+      };
+
+      const handleQuote = (e) => {
+        if (e.key === "Enter") {
+          const name = nameRef.current.value;
+          const quote = quoteRef.current.value;
+          if (name && quote) {
+            quotes.push({ name, quote });
+            clearInputs();
+            renderQuotes();
+          }
+        }
+      };
+
+      const renderQuotes = () => {
+        const quotesContainer = document.querySelector(".quotes");
+        quotesContainer.innerHTML = "";
+        quotes.forEach((q, i) => {
+          const quoteElement = document.createElement("div");
+          quoteElement.innerHTML = `<i>"${q.quote}"</i><b>~ ${q.name}</b>`;
+          quotesContainer.appendChild(quoteElement);
+        });
+      };
+
+      const App = () => {
+        return (
+          <div className="App">
+            <h2>Quotify</h2>
+            <div>
+              <input
+                placeholder="Name"
+                ref={nameRef}
+                onKeyPress={handleQuote}
+              />
+              <input
+                placeholder="Quotes"
+                ref={quoteRef}
+                onKeyPress={handleQuote}
+              />
+            </div>
+            <div className="quotes">
+              {quotes.map((q, i) => (
+                <div key={i}>
+                  <i>"{q.quote}"</i>
+                  <b>~ {q.name}</b>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      };
+
+      const nameRef = React.createRef();
+      const quoteRef = React.createRef();
+
+      const rootElement = ReactDOM.createRoot(
+        document.getElementById("root")
+      );
+      rootElement.render(<App />);
+    </script>
+  </body>
+</html>
